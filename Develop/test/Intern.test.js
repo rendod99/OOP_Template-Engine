@@ -1,5 +1,5 @@
-const Intern = require("../lib/Intern");
-
+const Intern = require("../lib/Intern").Intern;
+const Employee = require("../lib/Intern").Employee;
 test("Can set school via constructor", () => {
   const testValue = "UCLA";
   const e = new Intern("Foo", 1, "test@test.com", testValue);
