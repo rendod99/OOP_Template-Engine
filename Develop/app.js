@@ -13,54 +13,153 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-inquirer
+
+
+function enrollPrompt() {
+  inquirer
     .prompt({
-        type: 'list',
-        name: 'type',
-        message: 'Which ?',
-        choices: ['Engineer', 'Intern', 'Manager'],
+      type: 'list',
+      name: 'type',
+      message: 'Which ?',
+      choices: ['Engineer', 'Intern', 'Manager'],
     }).then((answers) => {
-        if (answers.type === 'Engineer') {
+      if (answers.type === 'Engineer') {
+        console.log('Welcome new Engineer!');
+        engineerInfo();
+      } else if (answers.type === 'Intern') {
+        console.log('Welcome new Intern!');
+        internInfo();
+      } else {
+        console.log('Welcome new Manager!');
+        managerInfo();
+      }
+    });
+};
 
-        } else if (answers.type === 'Intern') {
+function engineerInfo() {
+  inquirer
+    .prompt([{
+        type: 'input',
+        message: 'What is Your name?',
+        name: 'name'
+      }, {
+        type: 'input',
+        message: 'What is Your ID number?',
+        name: 'id'
+      }, {
+        type: 'input',
+        message: 'What is Your Email?',
+        name: 'email'
+      }, {
+        type: 'input',
+        message: 'What is Your GitHub username?',
+        name: 'github'
+      },
+      {
+        type: "checkbox",
+        message: "Enroll another Employee?",
+        name: "enroll",
+        choices: [
+          "yes",
+          "no"
+        ]
+      }
+    ])
 
-        } else {
-
-        }
+    .then((response) => {
+      if (response.enroll == "yes") {
+        return enrollPrompt();
+      } else {
+        console.log('Team Assembled!');
+        render();
+      }
     });
 
+};
 
-/*{
-  type: "input",
-  message: "what is your name?",
-  name: "name"
-},
-{
-  type: "input",
-  message: "What is your ID number?",
-  name: "id"
-},
-{
-  type: "input",
-  message: "What is your email?",
-  name: "email"
-},
-{
-  type: "input",
-  message: "What is your office number?",
-  name: "officeNumber"
-},
-{
-  type: "input",
-  message: "What is your github username?",
-  name: "github"
-},
-{
-  type: "input",
-  message: "Where are you currently attending school?",
-  name: "school"
-},
-*/
+function internInfo() {
+  inquirer
+    .prompt([{
+        type: 'input',
+        message: 'What is Your name?',
+        name: 'name'
+      }, {
+        type: 'input',
+        message: 'What is Your ID number?',
+        name: 'id'
+      }, {
+        type: 'input',
+        message: 'What is Your Email?',
+        name: 'email'
+      }, {
+        type: 'input',
+        message: 'Where do you attend school?',
+        name: 'school'
+      },
+      {
+        type: "checkbox",
+        message: "Enroll another Employee?",
+        name: "enroll",
+        choices: [
+          "yes",
+          "no"
+        ]
+      }
+    ])
+
+    .then((response) => {
+      if (response.enroll == "yes") {
+        return enrollPrompt();
+      } else {
+        console.log('Team Assembled!');
+        render();
+      }
+    });
+
+};
+
+function managerInfo() {
+  inquirer
+    .prompt([{
+        type: 'input',
+        message: 'What is Your name?',
+        name: 'name'
+      }, {
+        type: 'input',
+        message: 'What is Your ID number?',
+        name: 'id'
+      }, {
+        type: 'input',
+        message: 'What is Your Email?',
+        name: 'email'
+      }, {
+        type: 'input',
+        message: 'What is your office number?',
+        name: 'office'
+      },
+      {
+        type: "checkbox",
+        message: "Enroll another Employee?",
+        name: "enroll",
+        choices: [
+          "yes",
+          "no"
+        ]
+      }
+    ])
+
+    .then((response) => {
+      if (response.enroll == "yes") {
+        return enrollPrompt();
+      } else {
+        console.log('Team Assembled!');
+        render(response);
+      }
+    });
+
+};
+enrollPrompt()
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
