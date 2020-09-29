@@ -1,6 +1,12 @@
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
+const {
+  Manager
+} = require("./lib/Manager");
+const {
+  Engineer
+} = require("./lib/Engineer");
+const {
+  Intern
+} = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -9,7 +15,11 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const {
+  Employee
+} = require("./lib/Manager");
 
+let employeesArray = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -19,14 +29,14 @@ function enrollPrompt() {
   inquirer
     .prompt({
       type: 'list',
-      name: 'type',
+      name: 'employees',
       message: 'Which ?',
       choices: ['Engineer', 'Intern', 'Manager'],
     }).then((answers) => {
-      if (answers.type === 'Engineer') {
+      if (answers.employees === 'Engineer') {
         console.log('Welcome new Engineer!');
         engineerInfo();
-      } else if (answers.type === 'Intern') {
+      } else if (answers.employees === 'Intern') {
         console.log('Welcome new Intern!');
         internInfo();
       } else {
@@ -67,11 +77,23 @@ function engineerInfo() {
     ])
 
     .then((response) => {
+
+      const e = new Engineer(response.name, response.id, response.email, response.github);
+      console.log(e)
+
+      employeesArray.push(e);
+
       if (response.enroll == "yes") {
-        return enrollPrompt();
+        return enrollPrompt()
       } else {
-        console.log('Team Assembled!');
-        render();
+        try {
+          console.log('Team Assembled!')
+          console.log(render(employeesArray));
+        } catch (err) {
+          console.log(err)
+        }
+
+
       }
     });
 
@@ -108,11 +130,22 @@ function internInfo() {
     ])
 
     .then((response) => {
+
+      const e = new Intern(response.name, response.id, response.email, response.school);
+      console.log(e)
+
+      employeesArray.push(e);
       if (response.enroll == "yes") {
-        return enrollPrompt();
+        return enrollPrompt()
       } else {
-        console.log('Team Assembled!');
-        render();
+        try {
+          console.log('Team Assembled!')
+          render(employeesArray)
+        } catch (err) {
+          console.log(err)
+        }
+
+
       }
     });
 
@@ -149,15 +182,26 @@ function managerInfo() {
     ])
 
     .then((response) => {
+
+      const e = new Manager(response.name, response.id, response.email, response.office);
+      console.log(e)
+
+      employeesArray.push(e);
       if (response.enroll == "yes") {
-        return enrollPrompt();
+        return enrollPrompt()
       } else {
-        console.log('Team Assembled!');
-        render(response);
+        try {
+          console.log('Team Assembled!')
+          render(employeesArray)
+        } catch (err) {
+          console.log(err)
+        }
+
+
       }
     });
-
 };
+
 enrollPrompt()
 
 
