@@ -89,6 +89,15 @@ function engineerInfo() {
         try {
           console.log('Team Assembled!')
           console.log(render(employeesArray));
+          fs.writeFile(outputPath, render(employeesArray), function (err) {
+
+            if (err) {
+              return console.log(err);
+            }
+
+            console.log("Success!");
+
+          });
         } catch (err) {
           console.log(err)
         }
@@ -141,6 +150,15 @@ function internInfo() {
         try {
           console.log('Team Assembled!')
           render(employeesArray)
+          fs.writeFile(outputPath, render(employeesArray), function (err) {
+
+            if (err) {
+              return console.log(err);
+            }
+
+            console.log("Success!");
+
+          });
         } catch (err) {
           console.log(err)
         }
@@ -193,6 +211,15 @@ function managerInfo() {
         try {
           console.log('Team Assembled!')
           render(employeesArray)
+          fs.writeFile(outputPath, render(employeesArray), function (err) {
+
+            if (err) {
+              return console.log(err);
+            }
+
+            console.log("Success!");
+
+          });
         } catch (err) {
           console.log(err)
         }
