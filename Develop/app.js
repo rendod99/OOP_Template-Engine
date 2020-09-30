@@ -1,3 +1,5 @@
+//Dependecies
+
 const {
   Manager
 } = require("./lib/Manager");
@@ -21,16 +23,13 @@ const {
 
 let employeesArray = [];
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
-
+//Starting prompt function to inquire about Employee occupation
 function enrollPrompt() {
   inquirer
     .prompt({
       type: 'list',
       name: 'employees',
-      message: 'Which ?',
+      message: 'Enroll a new:',
       choices: ['Engineer', 'Intern', 'Manager'],
     }).then((answers) => {
       if (answers.employees === 'Engineer') {
@@ -46,6 +45,7 @@ function enrollPrompt() {
     });
 };
 
+//Engineer prompt to inquire about Engineer info
 function engineerInfo() {
   inquirer
     .prompt([{
@@ -76,6 +76,7 @@ function engineerInfo() {
       }
     ])
 
+    // Handeling response to Engineer info
     .then((response) => {
 
       const e = new Engineer(response.name, response.id, response.email, response.github);
@@ -108,6 +109,7 @@ function engineerInfo() {
 
 };
 
+//Intern prompt to inquire about Intern info
 function internInfo() {
   inquirer
     .prompt([{
@@ -138,6 +140,7 @@ function internInfo() {
       }
     ])
 
+    // Handeling response to Intern info
     .then((response) => {
 
       const e = new Intern(response.name, response.id, response.email, response.school);
@@ -169,6 +172,7 @@ function internInfo() {
 
 };
 
+//Manager prompt to inquire about Manager info
 function managerInfo() {
   inquirer
     .prompt([{
@@ -199,6 +203,7 @@ function managerInfo() {
       }
     ])
 
+    // Handeling response to Manager info
     .then((response) => {
 
       const e = new Manager(response.name, response.id, response.email, response.office);
@@ -229,8 +234,14 @@ function managerInfo() {
     });
 };
 
+// Starting Inquire function
 enrollPrompt()
 
+
+
+
+// Write code to use inquirer to gather information about the development team members,
+// and to create objects for each team member (using the correct classes as blueprints!)
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
